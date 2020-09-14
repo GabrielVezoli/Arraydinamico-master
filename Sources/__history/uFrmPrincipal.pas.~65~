@@ -1,0 +1,103 @@
+unit uFrmPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, uPessoa,
+  Vcl.ExtCtrls;
+
+type
+  TFrmPrincipal = class(TForm)
+    BtnCadastrar: TButton;
+    BtnListar: TButton;
+    EdtNome: TEdit;
+    EdtIdade: TEdit;
+    MECPF: TMaskEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    MListaCadastro: TMemo;
+    BtnLimpar: TButton;
+    Panel1: TPanel;
+    procedure BtnCadastrarClick(Sender: TObject);
+    procedure BtnListarClick(Sender: TObject);
+    procedure EdtIdadeKeyPress(Sender: TObject; var Key: Char);
+    procedure BtnLimparClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmPrincipal: TFrmPrincipal;
+  Pessoa: TPessoa;
+  VetorCad: array of TPessoa;
+  T: Integer = 0;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmPrincipal.BtnCadastrarClick(Sender: TObject);
+begin
+  try
+    if (EdtNome.Text <> '') and (MECPF.Text <> '') and (EdtIdade.Text <> '')
+    then
+
+      Pessoa := TPessoa.Create;
+
+    Pessoa.Nome := EdtNome.Text;
+    Pessoa.CPF := MECPF.Text;
+    Pessoa.Idade := StrToInt(EdtIdade.Text);
+
+    T := T + 1;
+
+    setLength(VetorCad, T);
+
+    VetorCad[T - 1] := Pessoa;
+
+    ShowMessage('O Usuário foi cadastrado com sucesso!');
+
+    EdtNome.Clear;
+    MECPF.Clear;
+    EdtIdade.Clear;
+  finally
+
+  end;
+  MessageDlg('Preencha todos os campos!', mtError, [mbOK], 0);
+end;
+
+procedure TFrmPrincipal.BtnLimparClick(Sender: TObject);
+begin
+  MListaCadastro.Lines.Clear;
+end;
+
+procedure TFrmPrincipal.BtnListarClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  for I := 0 to T - 1 do
+  begin
+    MListaCadastro.Lines.Add('');
+
+    Pessoa := VetorCad[I];
+
+    MListaCadastro.Lines.Add('Nome: ' + Pessoa.Nome + #13#10 + 'CPF: ' +
+      Pessoa.CPF + #13#10 + 'Idade: ' + IntToStr(Pessoa.Idade));
+  end;
+
+end;
+
+procedure TFrmPrincipal.EdtIdadeKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not(Key in ['0' .. '9', Chr(8)]) then
+  begin
+    EdtIdade.Clear;
+    MessageDlg('Voçê não digitou valores numéricos', mtError, [mbOK], 0);
+  end;
+end;
+
+end.

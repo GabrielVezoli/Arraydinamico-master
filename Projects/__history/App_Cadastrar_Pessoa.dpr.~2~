@@ -1,0 +1,14 @@
+program App_Cadastrar_Pessoa;
+
+uses
+  Vcl.Forms,
+  uFrmPrincipal in '..\Sources\uFrmPrincipal.pas' {FrmPrincipal};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+  Application.Run;
+end.

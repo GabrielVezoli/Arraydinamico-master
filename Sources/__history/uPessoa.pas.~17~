@@ -1,0 +1,27 @@
+unit uPessoa;
+
+interface
+
+type
+  TPessoa = class
+
+  private
+    FNome: String;
+    FCPF: Integer;
+    FIdade: Integer;
+    procedure setNome(Value: String);
+    procedure setCPF(Value: Integer);
+    procedure setIdade(Value: Integer);
+    function getNome: String;
+    function getCPF: Integer;
+    function getIdade: Integer;
+
+  public
+    property Nome: String read getNome write setNome;
+    property CPF: Integer read getCPF write setCPF;
+    property Idade: Integer read getIdade write setIdade;
+  end;
+
+implementation
+
+end.

@@ -1,0 +1,16 @@
+program App_Cadastrar_Pessoa;
+
+uses
+  Vcl.Forms,
+  uFrmPrincipal in '..\Sources\uFrmPrincipal.pas' {FrmPrincipal},
+  uPessoa in '..\Sources\uPessoa.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'Cadastrado!';
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+  Application.Run;
+end.
